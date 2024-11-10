@@ -14,14 +14,11 @@ import {
 } from "@solana/spl-token";
 import { createInitializeInstruction, pack } from "@solana/spl-token-metadata";
 import { useConnection, useWallet } from "@solana/wallet-adapter-react";
-import {
-  Keypair,
-  PublicKey,
-  SystemProgram,
-  Transaction,
-} from "@solana/web3.js";
+import { Keypair, SystemProgram, Transaction } from "@solana/web3.js";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
+
+import { pinata } from "@/utils/config";
 
 export default function SolanaTokenCreationForm() {
   const NORMAL_FEES = 0.1;
@@ -38,11 +35,7 @@ export default function SolanaTokenCreationForm() {
   const wallet = useWallet();
   const { connection } = useConnection();
 
-  async function mintTokens() {
-    const tokenMintAccount = new PublicKey(
-      "6HCA5TwJnKtQoUJcoYwkUud76Wf6tD6J7uifCFxBzaur"
-    );
-
+  async function mintTokens(tokenMintAccount, supply, decimals) {
     const associatedTokenAccount = getAssociatedTokenAddressSync(
       tokenMintAccount,
       wallet.publicKey,
@@ -59,34 +52,83 @@ export default function SolanaTokenCreationForm() {
         wallet.publicKey,
         tokenMintAccount,
         TOKEN_2022_PROGRAM_ID
-      )
-    );
-
-    await wallet.sendTransaction(transaction, connection);
-
-    const transaction3 = new Transaction().add(
+      ),
       createMintToInstruction(
         tokenMintAccount,
         associatedTokenAccount,
         wallet.publicKey, // mint authority
-        10 * Math.pow(10, 6),
+        Number(supply) * Math.pow(10, Number(decimals)),
         [],
         TOKEN_2022_PROGRAM_ID
       )
     );
 
-    await wallet.sendTransaction(transaction3, connection)
+    await wallet.sendTransaction(transaction, connection);
+  }
+
+  async function uploadFile(file) {
+    try {
+      // setUploading(true);
+      const keyRequest = await fetch("api/key");
+      console.log(keyRequest);
+      const keyData = await keyRequest.json();
+      const upload = await pinata.upload.file(file).key(keyData.JWT);
+      const ipfsUrl = await pinata.gateways.convert(upload.IpfsHash);
+      // // setUrl(ipfsUrl);
+      console.log(ipfsUrl);
+      // // setUploading(false);
+      return ipfsUrl;
+    } catch (e) {
+      console.log("error occurred");
+      console.log(e);
+      // setUploading(false);
+      return null;
+    }
+  }
+
+  async function uploadMetaData(data, ipfsUrl) {
+    const metadata = {
+      name: data.name,
+      symbol: data.symbol,
+      description: data.description,
+      image: ipfsUrl,
+    };
+
+    try {
+      const keyRequest = await fetch("/api/key");
+      const keyData = await keyRequest.json();
+      const upload = await pinata.upload.json(metadata).key(keyData.JWT);
+      const metadataUri = await pinata.gateways.convert(upload.IpfsHash);
+      // setUrl(ipfsUrl);
+      console.log(metadataUri);
+      // setUploading(false);
+      return metadataUri;
+    } catch (e) {
+      console.log(e);
+      // setUploading(false);
+      return null;
+    }
   }
 
   async function createToken(data) {
     const keypair = Keypair.generate();
+    const ipfsUrl = await uploadFile(data?.image[0]);
+    if (ipfsUrl == null) {
+      alert("Trouble uploading file");
+      return;
+    }
+    const metadataUri = await uploadMetaData(data, ipfsUrl);
+    await createTokenMint(data, metadataUri, keypair);
+    await mintTokens(keypair.publicKey, data.supply, data.decimals);
+  }
 
+  async function createTokenMint(data, uri, keypair) {
     const metadata = {
       updateAuthority: wallet.publicKey,
       mint: keypair.publicKey,
-      name: "Kira",
-      symbol: "KIR",
-      uri: "https://cdn.100xdevs.com/metadata.json",
+      name: data.name,
+      symbol: data.symbol,
+      uri: uri,
       additionalMetadata: [],
     };
 
@@ -113,7 +155,7 @@ export default function SolanaTokenCreationForm() {
       ),
       createInitializeMintInstruction(
         keypair.publicKey,
-        6, // decimals
+        Number(data.decimals), // decimals
         wallet.publicKey, // mint authprity
         wallet.publicKey, // freeze authority
         TOKEN_2022_PROGRAM_ID
@@ -437,14 +479,12 @@ export default function SolanaTokenCreationForm() {
           >
             Create Token
           </button>
-
           <p className="mt-3 text-base font-bold mb-10">
             Total Fees :{" "}
             <span className="text-violet-500">{totalFees.toFixed(2)} SOL</span>
           </p>
         </div>
       </form>
-      <button onClick={mintTokens}>click</button>
     </div>
   );
 }
