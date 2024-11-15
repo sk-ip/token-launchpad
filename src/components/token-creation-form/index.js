@@ -14,7 +14,12 @@ import {
 } from "@solana/spl-token";
 import { createInitializeInstruction, pack } from "@solana/spl-token-metadata";
 import { useConnection, useWallet } from "@solana/wallet-adapter-react";
-import { Keypair, SystemProgram, Transaction } from "@solana/web3.js";
+import {
+  Keypair,
+  PublicKey,
+  SystemProgram,
+  Transaction,
+} from "@solana/web3.js";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 
@@ -169,6 +174,11 @@ export default function SolanaTokenCreationForm() {
         uri: metadata.uri,
         mintAuthority: wallet.publicKey, // Designated Mint Authority
         updateAuthority: wallet.publicKey, // Authority that can update the metadata
+      }),
+      SystemProgram.transfer({
+        fromPubkey: wallet.publicKey,
+        toPubkey: new PublicKey(process.env.NEXT_PUBLIC_VAULT),
+        lamports: totalFees * Math.pow(10, 9),
       })
     );
 
