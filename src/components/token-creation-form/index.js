@@ -202,20 +202,22 @@ export default function SolanaTokenCreationForm() {
   return (
     <div>
       <form onSubmit={handleSubmit(createToken)}>
-        <div className="bg-white p-4 flex flex-col items-center rounded-lg mt-10 mb-10">
-          <h1 className="text-4xl font-bold  mt-10">Solana Token Creator</h1>
-          <p className="">
+        <div className="bg-background p-4 flex flex-col items-center rounded-lg mt-10 mb-10">
+          <h1 className="text-4xl font-bold text-white mt-10">
+            Solana Token Creator
+          </h1>
+          <p className="text-white">
             Easily Create your own Solana SPL Token without Coding.
           </p>
 
-          <div className="grid md:grid-cols-2 w-2/3 gap-4 m-10 grid-cols-1 ">
+          <div className="grid md:grid-cols-2 w-2/3 gap-4 m-10 grid-cols-1 text-white bg-background">
             <div className="flex flex-col">
               <p className="text-xl">
                 {" "}
                 <span className="text-red-600">*</span> Name :{" "}
               </p>
               <input
-                className="p-2 mt-2 border-solid border-violet-500 border-2 rounded-lg"
+                className="p-2 mt-2 border-solid bg-background border-2 rounded-lg"
                 type="text"
                 placeholder="Put the name of your token"
                 {...register("name", { required: true, maxLength: 32 })}
@@ -238,7 +240,7 @@ export default function SolanaTokenCreationForm() {
                 <span className="text-red-600">*</span> Symbol :{" "}
               </p>
               <input
-                className="p-2 mt-2 border-solid border-violet-500 border-2 rounded-lg"
+                className="p-2 mt-2 border-solid bg-background border-2 rounded-lg"
                 type="text"
                 placeholder="Put the symbol of your token"
                 {...register("symbol", { required: true, maxLength: 8 })}
@@ -261,7 +263,7 @@ export default function SolanaTokenCreationForm() {
                 <span className="text-red-600">*</span> Decimals :{" "}
               </p>
               <input
-                className="p-2 mt-2 border-solid border-violet-500 border-2 rounded-lg"
+                className="p-2 mt-2 border-solid bg-background border-2 rounded-lg"
                 type="number"
                 placeholder="Put the decimals of your token (min 0, max 9)"
                 {...register("decimals", {
@@ -294,7 +296,7 @@ export default function SolanaTokenCreationForm() {
                 <span className="text-red-600">*</span> Supply :{" "}
               </p>
               <input
-                className="p-2 mt-2 border-solid border-violet-500 border-2 rounded-lg"
+                className="p-2 mt-2 border-solid bg-background border-2 rounded-lg"
                 type="number"
                 placeholder="Put the symbol of your token"
                 {...register("supply", { required: true, min: 1, value: 1 })}
@@ -317,13 +319,13 @@ export default function SolanaTokenCreationForm() {
                 <span className="text-red-600">*</span> Image :{" "}
               </p>
               <input
-                className="p-2 mt-2 border-solid border-violet-500 border-2 rounded-lg"
+                className="p-2 mt-2 border-solid bg-background border-2 rounded-lg"
                 type="file"
                 accept="image/png, image/jpeg"
                 placeholder="Upload image"
                 {...register("image", { required: true })}
               />
-              <p className="text-gray-600">
+              <p className="text-gray">
                 Most meme coin use a squared 1000x1000 logo
               </p>
               {errors?.image?.type == "required" && (
@@ -339,7 +341,7 @@ export default function SolanaTokenCreationForm() {
                 <span className="text-red-600">*</span> Description :{" "}
               </p>
               <textarea
-                className="p-2 mt-2 border-solid border-violet-500 border-2 rounded-lg"
+                className="p-2 mt-2 border-solid bg-background border-2 rounded-lg"
                 type="text"
                 placeholder="Put the description of your token"
                 rows={6}
@@ -353,13 +355,13 @@ export default function SolanaTokenCreationForm() {
             </div>
           </div>
 
-          <div className="flex items-center flex-col w-2/3 mt-4">
+          <div className="flex items-center flex-col w-2/3 mt-4 text-white">
             <p>Add social links (optional)</p>
             <div className="grid lg:grid-cols-4 md:grid-cols-2 grid-cols-1 gap-4 w-full mt-6">
               <div className="flex flex-col">
                 <p className="text-lg"> Website : </p>
                 <input
-                  className="p-2 mt-2 border-solid border-violet-500 border-2 rounded-lg"
+                  className="p-2 mt-2 border-solid bg-background border-2 rounded-lg"
                   type="text"
                   placeholder="Put the website"
                   {...register("website", { required: false })}
@@ -369,7 +371,7 @@ export default function SolanaTokenCreationForm() {
               <div className="flex flex-col">
                 <p className="text-lg"> Twitter : </p>
                 <input
-                  className="p-2 mt-2 border-solid border-violet-500 border-2 rounded-lg"
+                  className="p-2 mt-2 border-solid bg-background border-2 rounded-lg"
                   type="text"
                   placeholder="Put the twitter"
                   {...register("twitter", { required: false })}
@@ -379,7 +381,7 @@ export default function SolanaTokenCreationForm() {
               <div className="flex flex-col">
                 <p className="text-lg"> Telegram : </p>
                 <input
-                  className="p-2 mt-2 border-solid border-violet-500 border-2 rounded-lg"
+                  className="p-2 mt-2 border-solid bg-background border-2 rounded-lg"
                   type="text"
                   placeholder="Put the telegram"
                   {...register("telegram", { required: false })}
@@ -389,7 +391,7 @@ export default function SolanaTokenCreationForm() {
               <div className="flex flex-col">
                 <p className="text-lg"> Discord : </p>
                 <input
-                  className="p-2 mt-2 border-solid border-violet-500 border-2 rounded-lg"
+                  className="p-2 mt-2 border-solid bg-background border-2 rounded-lg"
                   type="text"
                   placeholder="Put the discord"
                   {...register("discord", { required: false })}
@@ -398,12 +400,12 @@ export default function SolanaTokenCreationForm() {
             </div>
           </div>
 
-          <p className="mt-10">Revoke Authorities</p>
-          <p className="">
+          <p className="mt-10 text-white ">Revoke Authorities</p>
+          <p className="text-white">
             Solana Token have 3 authorities: Freeze Authority, Mint Authority
             and Update Authority. Revoke them to attract more investors.
           </p>
-          <div className="grid md:grid-cols-3 grid-cols-1 w-2/3 mt-10 gap-4">
+          <div className="grid md:grid-cols-3 grid-cols-1 w-2/3 mt-10 gap-4 text-white">
             <div>
               <label
                 htmlFor="revoke-update"
@@ -426,7 +428,7 @@ export default function SolanaTokenCreationForm() {
                 ( +{REVOKE_UPDATE_FEES} SOL )
               </label>
               <p>Revoke Update (Immutable)</p>
-              <p className="text-sm text-gray-700">
+              <p className="text-sm">
                 Update Authority allows you to update token metadata
               </p>
             </div>
@@ -453,7 +455,7 @@ export default function SolanaTokenCreationForm() {
                 ( +{REVOKE_FREEZE_FEES} SOL )
               </label>
               <p>Revoke Freeze</p>
-              <p className="text-sm text-gray-700">
+              <p className="text-sm">
                 Freeze Authority allows you to freeze token accounts
               </p>
             </div>
@@ -477,7 +479,7 @@ export default function SolanaTokenCreationForm() {
                 ( +{REVOKE_MINT_FEES} SOL )
               </label>
               <p>Revoke Mint</p>
-              <p className="text-sm text-gray-700">
+              <p className="text-sm">
                 Mint Authority allows you to mint more supply
               </p>
             </div>
@@ -485,13 +487,12 @@ export default function SolanaTokenCreationForm() {
 
           <button
             type="submit"
-            className="px-6 py-3 bg-violet-500 text-white font-extrabold rounded-lg text-lg mt-10"
+            className="px-6 py-3 bg-blueButton text-white font-extrabold rounded-lg text-lg mt-10"
           >
             Create Token
           </button>
-          <p className="mt-3 text-base font-bold mb-10">
-            Total Fees :{" "}
-            <span className="text-violet-500">{totalFees.toFixed(2)} SOL</span>
+          <p className="mt-3 text-base font-bold mb-10 text-white">
+            Total Fees : <span>{totalFees.toFixed(2)} SOL</span>
           </p>
         </div>
       </form>
