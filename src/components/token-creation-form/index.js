@@ -22,6 +22,7 @@ import {
 } from "@solana/web3.js";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
+import Swal from "sweetalert2";
 
 import { pinata } from "@/utils/config";
 
@@ -32,7 +33,7 @@ export default function SolanaTokenCreationForm() {
   const REVOKE_MINT_FEES = 0.1;
 
   const [isRevokeUpdateChecked, setIsRevokeUpdateChecked] = useState(false);
-  const [isRevokeFreezeChecked, setIsRevokeFreezeChecked] = useState(false);
+  const [isRevokeFreezeChecked, setIsRevokeFreezeChecked] = useState(true);
   const [isRevokeMintChecked, setIsRevokeMintChecked] = useState(false);
 
   const [totalFees, setTotalFees] = useState(NORMAL_FEES);
@@ -47,8 +48,6 @@ export default function SolanaTokenCreationForm() {
       false,
       TOKEN_2022_PROGRAM_ID
     );
-
-    console.log(associatedTokenAccount.toBase58());
 
     const transaction = new Transaction().add(
       createAssociatedTokenAccountInstruction(
@@ -115,16 +114,66 @@ export default function SolanaTokenCreationForm() {
     }
   }
 
+  function showLoading({ title, text }) {
+    return Swal.fire({
+      title: title,
+      text: text,
+      allowOutsideClick: false,
+      didOpen: () => {
+        Swal.showLoading();
+      },
+    });
+  }
+
+  function showSuccess({ title, allowOutsideClick, showConfirmButton }) {
+    return Swal.fire({
+      title: title,
+      icon: "success",
+      showConfirmButton: allowOutsideClick,
+      timer: 50000,
+      allowOutsideClick: showConfirmButton,
+    });
+  }
+
+  function showFailure({ title, msg }) {
+    return Swal.fire({
+      title: title,
+      text: msg,
+      icon: "error",
+    });
+  }
+
+  const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+
   async function createToken(data) {
     const keypair = Keypair.generate();
+    showLoading({ title: "Uploading Image" });
     const ipfsUrl = await uploadFile(data?.image[0]);
     if (ipfsUrl == null) {
-      alert("Trouble uploading file");
+      showFailure({ title: "Trouble uploading file" });
       return;
     }
+    showSuccess({
+      title: "Image Uploaded to IPFS",
+      allowOutsideClick: false,
+      showConfirmButton: false,
+    });
+    await sleep(3000);
+
+    showLoading({ title: "Creating Token Metadata" });
     const metadataUri = await uploadMetaData(data, ipfsUrl);
+    showLoading({ title: "Creating Token Mint" });
     await createTokenMint(data, metadataUri, keypair);
+    showSuccess({ title: "Token Mint Created" });
+    await sleep(3000);
+    showLoading({ title: "Minting Tokens to your Wallet" });
     await mintTokens(keypair.publicKey, data.supply, data.decimals);
+    showSuccess({
+      title: "Tokens Minted",
+      msg: "Tokens have been sent to your wallet.",
+      allowOutsideClick: true,
+      showConfirmButton: true,
+    });
   }
 
   async function createTokenMint(data, uri, keypair) {
@@ -202,8 +251,8 @@ export default function SolanaTokenCreationForm() {
   return (
     <div>
       <form onSubmit={handleSubmit(createToken)}>
-        <div className="bg-background p-4 flex flex-col items-center rounded-lg mt-10 mb-10">
-          <h1 className="text-4xl font-bold text-white mt-10">
+        <div className="bg-background border-white shadow-lg shadow-white border-2  p-4 flex flex-col items-center rounded-lg mt-10 mb-10">
+          <h1 className="text-4xl font-bold text-white mt-12">
             Solana Token Creator
           </h1>
           <p className="text-white">
@@ -456,7 +505,8 @@ export default function SolanaTokenCreationForm() {
               </label>
               <p>Revoke Freeze</p>
               <p className="text-sm">
-                Freeze Authority allows you to freeze token accounts
+                Freeze Authority allows you to freeze token accounts. This is
+                required if you want to create a liquidity pool.
               </p>
             </div>
 

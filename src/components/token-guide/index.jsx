@@ -1,7 +1,7 @@
 export default function TokenCreationGuide() {
   return (
-    <div className="bg-background text-white p-4 flex flex-col items-center rounded-lg">
-      <h1 className=" mt-10 text-4xl font-bold underline">
+    <div className="bg-background border-2 border-white text-white p-4 flex flex-col items-center rounded-lg">
+      <h1 className=" mt-20 text-4xl font-bold underline">
         Solana Token Creation Guide
       </h1>
       <p className="w-1/2 mt-4">
@@ -25,7 +25,7 @@ export default function TokenCreationGuide() {
           8. Click on create, accept the transaction and wait until your tokens
           ready.
         </li>
-        <li>
+        <li className="mt-4">
           The cost of Token creation is 0.1 SOL, covering all fees for SPL Token
           Creation.
         </li>
@@ -60,7 +60,7 @@ export default function TokenCreationGuide() {
       </p>
       <br />
       <p className="w-1/2 mb-20">
-        You can choose to revoke mint authority later if you choose
+        You can choose to revoke mint authority later if you choose.
       </p>
     </div>
   );
