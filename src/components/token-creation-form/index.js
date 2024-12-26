@@ -249,24 +249,22 @@ export default function SolanaTokenCreationForm() {
   } = useForm();
 
   return (
-    <div>
+    <div className="font-BeVietnamPro">
       <form onSubmit={handleSubmit(createToken)}>
-        <div className="bg-background border-white shadow-lg shadow-white border-2  p-4 flex flex-col items-center rounded-lg mt-10 mb-10">
-          <h1 className="text-4xl font-bold text-white mt-12">
-            Solana Token Creator
-          </h1>
-          <p className="text-white">
+        <div className="bg-foreground p-4 flex flex-col items-center rounded-lg mt-10 mb-10 text-primary">
+          <h1 className="text-4xl font-black mt-12">Solana Token Creator</h1>
+          <p className="text-base">
             Easily Create your own Solana SPL Token without Coding.
           </p>
 
-          <div className="grid md:grid-cols-2 w-2/3 gap-4 m-10 grid-cols-1 text-white bg-background">
+          <div className="grid md:grid-cols-2 w-2/3 gap-4 m-10 grid-cols-1">
             <div className="flex flex-col">
-              <p className="text-xl">
+              <p className="text-base">
                 {" "}
                 <span className="text-red-600">*</span> Name :{" "}
               </p>
               <input
-                className="p-2 mt-2 border-solid bg-background border-2 rounded-lg"
+                className="p-2 mt-2 border-solid bg-foreground border-2 border-background rounded-lg"
                 type="text"
                 placeholder="Put the name of your token"
                 {...register("name", { required: true, maxLength: 32 })}
@@ -284,12 +282,12 @@ export default function SolanaTokenCreationForm() {
             </div>
 
             <div className="flex flex-col">
-              <p className="text-xl">
+              <p className="text-base">
                 {" "}
                 <span className="text-red-600">*</span> Symbol :{" "}
               </p>
               <input
-                className="p-2 mt-2 border-solid bg-background border-2 rounded-lg"
+                className="p-2 mt-2 border-solid bg-foreground border-background border-2 rounded-lg"
                 type="text"
                 placeholder="Put the symbol of your token"
                 {...register("symbol", { required: true, maxLength: 8 })}
@@ -307,19 +305,19 @@ export default function SolanaTokenCreationForm() {
             </div>
 
             <div className="flex flex-col">
-              <p className="text-xl">
+              <p className="text-base">
                 {" "}
                 <span className="text-red-600">*</span> Decimals :{" "}
               </p>
               <input
-                className="p-2 mt-2 border-solid bg-background border-2 rounded-lg"
+                className="p-2 mt-2 border-solid bg-foreground border-background border-2 rounded-lg"
                 type="number"
                 placeholder="Put the decimals of your token (min 0, max 9)"
                 {...register("decimals", {
                   required: true,
                   min: 1,
-                  max: 18,
-                  value: 1,
+                  max: 9,
+                  value: 6,
                 })}
               />
               {errors?.decimals?.type == "required" && (
@@ -340,12 +338,12 @@ export default function SolanaTokenCreationForm() {
             </div>
 
             <div className="flex flex-col">
-              <p className="text-xl">
+              <p className="text-base">
                 {" "}
                 <span className="text-red-600">*</span> Supply :{" "}
               </p>
               <input
-                className="p-2 mt-2 border-solid bg-background border-2 rounded-lg"
+                className="p-2 mt-2 border-solid bg-foreground border-background border-2 rounded-lg"
                 type="number"
                 placeholder="Put the symbol of your token"
                 {...register("supply", { required: true, min: 1, value: 1 })}
@@ -363,18 +361,18 @@ export default function SolanaTokenCreationForm() {
             </div>
 
             <div className="flex flex-col">
-              <p className="text-xl">
+              <p className="text-base">
                 {" "}
                 <span className="text-red-600">*</span> Image :{" "}
               </p>
               <input
-                className="p-2 mt-2 border-solid bg-background border-2 rounded-lg"
+                className="p-2 mt-2 border-solid bg-foreground border-background border-2 rounded-lg"
                 type="file"
                 accept="image/png, image/jpeg"
                 placeholder="Upload image"
                 {...register("image", { required: true })}
               />
-              <p className="text-gray">
+              <p className="text-gray-400 text-sm">
                 Most meme coin use a squared 1000x1000 logo
               </p>
               {errors?.image?.type == "required" && (
@@ -385,12 +383,12 @@ export default function SolanaTokenCreationForm() {
             </div>
 
             <div className="flex flex-col">
-              <p className="text-xl">
+              <p className="text-base">
                 {" "}
                 <span className="text-red-600">*</span> Description :{" "}
               </p>
               <textarea
-                className="p-2 mt-2 border-solid bg-background border-2 rounded-lg"
+                className="p-2 mt-2 border-solid bg-foreground border-background border-2 rounded-lg"
                 type="text"
                 placeholder="Put the description of your token"
                 rows={6}
@@ -404,61 +402,61 @@ export default function SolanaTokenCreationForm() {
             </div>
           </div>
 
-          <div className="flex items-center flex-col w-2/3 mt-4 text-white">
-            <p>Add social links (optional)</p>
+          <div className="flex items-center flex-col w-2/3 mt-4 ">
+            <p className="text-sm">Add social links (optional)</p>
             <div className="grid lg:grid-cols-4 md:grid-cols-2 grid-cols-1 gap-4 w-full mt-6">
               <div className="flex flex-col">
-                <p className="text-lg"> Website : </p>
+                <p className="text-base"> Website : </p>
                 <input
-                  className="p-2 mt-2 border-solid bg-background border-2 rounded-lg"
+                  className="p-2 mt-2 border-solid bg-foreground border-background border-2 rounded-lg"
                   type="text"
-                  placeholder="Put the website"
+                  placeholder="Put your website"
                   {...register("website", { required: false })}
                 />
               </div>
 
               <div className="flex flex-col">
-                <p className="text-lg"> Twitter : </p>
+                <p className="text-base"> Twitter : </p>
                 <input
-                  className="p-2 mt-2 border-solid bg-background border-2 rounded-lg"
+                  className="p-2 mt-2 border-solid bg-foreground border-background border-2 rounded-lg"
                   type="text"
-                  placeholder="Put the twitter"
+                  placeholder="Put your twitter"
                   {...register("twitter", { required: false })}
                 />
               </div>
 
               <div className="flex flex-col">
-                <p className="text-lg"> Telegram : </p>
+                <p className="text-base"> Telegram : </p>
                 <input
-                  className="p-2 mt-2 border-solid bg-background border-2 rounded-lg"
+                  className="p-2 mt-2 border-solid bg-foreground border-background border-2 rounded-lg"
                   type="text"
-                  placeholder="Put the telegram"
+                  placeholder="Put your telegram"
                   {...register("telegram", { required: false })}
                 />
               </div>
 
               <div className="flex flex-col">
-                <p className="text-lg"> Discord : </p>
+                <p className="text-base"> Discord : </p>
                 <input
-                  className="p-2 mt-2 border-solid bg-background border-2 rounded-lg"
+                  className="p-2 mt-2 border-solid bg-foreground  border-background border-2 rounded-lg"
                   type="text"
-                  placeholder="Put the discord"
+                  placeholder="Put your discord"
                   {...register("discord", { required: false })}
                 />
               </div>
             </div>
           </div>
 
-          <p className="mt-10 text-white ">Revoke Authorities</p>
-          <p className="text-white">
+          <p className="mt-10 text-sm font-medium">Revoke Authorities</p>
+          <p className="text-sm text-gray mt-2 w-2/3">
             Solana Token have 3 authorities: Freeze Authority, Mint Authority
             and Update Authority. Revoke them to attract more investors.
           </p>
-          <div className="grid md:grid-cols-3 grid-cols-1 w-2/3 mt-10 gap-4 text-white">
+          <div className="grid md:grid-cols-3 grid-cols-1 w-2/3 mt-10 gap-4">
             <div>
               <label
                 htmlFor="revoke-update"
-                className="flex gap-2 items-center"
+                className="flex gap-2 items-center text-sm"
               >
                 <input
                   type="checkbox"
@@ -476,8 +474,8 @@ export default function SolanaTokenCreationForm() {
                 />{" "}
                 ( +{REVOKE_UPDATE_FEES} SOL )
               </label>
-              <p>Revoke Update (Immutable)</p>
-              <p className="text-sm">
+              <p className="text-base font-medium">Revoke Update (Immutable)</p>
+              <p className="text-sm text-gray-400">
                 Update Authority allows you to update token metadata
               </p>
             </div>
@@ -485,7 +483,7 @@ export default function SolanaTokenCreationForm() {
             <div>
               <label
                 htmlFor="revoke-freeze"
-                className="flex gap-2 items-center"
+                className="flex gap-2 items-center text-sm"
               >
                 <input
                   type="checkbox"
@@ -503,15 +501,18 @@ export default function SolanaTokenCreationForm() {
                 />{" "}
                 ( +{REVOKE_FREEZE_FEES} SOL )
               </label>
-              <p>Revoke Freeze</p>
-              <p className="text-sm">
+              <p className="text-base font-medium">Revoke Freeze</p>
+              <p className="text-sm text-gray-400">
                 Freeze Authority allows you to freeze token accounts. This is
                 required if you want to create a liquidity pool.
               </p>
             </div>
 
             <div>
-              <label htmlFor="revoke-mint" className="flex gap-2 items-center">
+              <label
+                htmlFor="revoke-mint"
+                className="flex gap-2 items-center text-sm"
+              >
                 <input
                   type="checkbox"
                   id="revoke-mint"
@@ -528,8 +529,8 @@ export default function SolanaTokenCreationForm() {
                 />{" "}
                 ( +{REVOKE_MINT_FEES} SOL )
               </label>
-              <p>Revoke Mint</p>
-              <p className="text-sm">
+              <p className="text-base font-medium">Revoke Mint</p>
+              <p className="text-sm text-gray-400">
                 Mint Authority allows you to mint more supply
               </p>
             </div>
@@ -537,12 +538,15 @@ export default function SolanaTokenCreationForm() {
 
           <button
             type="submit"
-            className="px-6 py-3 bg-blueButton text-white font-extrabold rounded-lg text-lg mt-10"
+            className="px-6 py-3 bg-blueButton bg-secondary font-extrabold rounded-lg text-base mt-10 hover:bg-darker_secondary"
           >
             Create Token
           </button>
-          <p className="mt-3 text-base font-bold mb-10 text-white">
-            Total Fees : <span>{totalFees.toFixed(2)} SOL</span>
+          <p className="mt-3 text-base mb-10 ">
+            Total Fees :{" "}
+            <span className="text-darker_secondary">
+              {totalFees.toFixed(2)} SOL
+            </span>
           </p>
         </div>
       </form>

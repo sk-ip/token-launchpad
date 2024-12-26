@@ -22,7 +22,7 @@ export default function Home() {
     <ConnectionProvider endpoint={"https://api.devnet.solana.com"}>
       <WalletProvider wallets={[]} autoConnect>
         <WalletModalProvider>
-          <div className=" bg-header px-20 py-10">
+          <div className="bg-background p-8">
             <div className="flex justify-end" suppressHydrationWarning>
               <WalletMultiButtonDynamic />
             </div>
