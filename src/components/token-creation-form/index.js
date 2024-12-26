@@ -252,14 +252,16 @@ export default function SolanaTokenCreationForm() {
     <div className="font-BeVietnamPro">
       <form onSubmit={handleSubmit(createToken)}>
         <div className="bg-foreground p-4 flex flex-col items-center rounded-lg mt-10 mb-10 text-primary">
-          <h1 className="text-4xl font-black mt-12">Solana Token Creator</h1>
-          <p className="text-base">
+          <h1 className="text-base sm:text-4xl font-black mt-12">
+            Solana Token Creator
+          </h1>
+          <p className="text-xs sm:text-base break-words">
             Easily Create your own Solana SPL Token without Coding.
           </p>
 
           <div className="grid md:grid-cols-2 w-2/3 gap-4 m-10 grid-cols-1">
             <div className="flex flex-col">
-              <p className="text-base">
+              <p className="text-xs sm:text-base">
                 {" "}
                 <span className="text-red-600">*</span> Name :{" "}
               </p>
@@ -282,7 +284,7 @@ export default function SolanaTokenCreationForm() {
             </div>
 
             <div className="flex flex-col">
-              <p className="text-base">
+              <p className="text-xs sm:text-base">
                 {" "}
                 <span className="text-red-600">*</span> Symbol :{" "}
               </p>
@@ -305,7 +307,7 @@ export default function SolanaTokenCreationForm() {
             </div>
 
             <div className="flex flex-col">
-              <p className="text-base">
+              <p className="text-xs sm:text-base">
                 {" "}
                 <span className="text-red-600">*</span> Decimals :{" "}
               </p>
@@ -338,7 +340,7 @@ export default function SolanaTokenCreationForm() {
             </div>
 
             <div className="flex flex-col">
-              <p className="text-base">
+              <p className="text-xs sm:text-base">
                 {" "}
                 <span className="text-red-600">*</span> Supply :{" "}
               </p>
@@ -361,7 +363,7 @@ export default function SolanaTokenCreationForm() {
             </div>
 
             <div className="flex flex-col">
-              <p className="text-base">
+              <p className="text-xs sm:text-base">
                 {" "}
                 <span className="text-red-600">*</span> Image :{" "}
               </p>
@@ -372,7 +374,7 @@ export default function SolanaTokenCreationForm() {
                 placeholder="Upload image"
                 {...register("image", { required: true })}
               />
-              <p className="text-gray-400 text-sm">
+              <p className="text-gray-400 text-xs sm:text-sm">
                 Most meme coin use a squared 1000x1000 logo
               </p>
               {errors?.image?.type == "required" && (
@@ -383,7 +385,7 @@ export default function SolanaTokenCreationForm() {
             </div>
 
             <div className="flex flex-col">
-              <p className="text-base">
+              <p className="text-xs sm:text-base">
                 {" "}
                 <span className="text-red-600">*</span> Description :{" "}
               </p>
@@ -403,10 +405,10 @@ export default function SolanaTokenCreationForm() {
           </div>
 
           <div className="flex items-center flex-col w-2/3 mt-4 ">
-            <p className="text-sm">Add social links (optional)</p>
+            <p className="text-xs sm:text-sm">Add social links (optional)</p>
             <div className="grid lg:grid-cols-4 md:grid-cols-2 grid-cols-1 gap-4 w-full mt-6">
               <div className="flex flex-col">
-                <p className="text-base"> Website : </p>
+                <p className="text-xs sm:text-base"> Website : </p>
                 <input
                   className="p-2 mt-2 border-solid bg-foreground border-background border-2 rounded-lg"
                   type="text"
@@ -416,7 +418,7 @@ export default function SolanaTokenCreationForm() {
               </div>
 
               <div className="flex flex-col">
-                <p className="text-base"> Twitter : </p>
+                <p className="text-xs sm:text-base"> Twitter : </p>
                 <input
                   className="p-2 mt-2 border-solid bg-foreground border-background border-2 rounded-lg"
                   type="text"
@@ -426,7 +428,7 @@ export default function SolanaTokenCreationForm() {
               </div>
 
               <div className="flex flex-col">
-                <p className="text-base"> Telegram : </p>
+                <p className="text-xs sm:text-base"> Telegram : </p>
                 <input
                   className="p-2 mt-2 border-solid bg-foreground border-background border-2 rounded-lg"
                   type="text"
@@ -436,7 +438,7 @@ export default function SolanaTokenCreationForm() {
               </div>
 
               <div className="flex flex-col">
-                <p className="text-base"> Discord : </p>
+                <p className="text-xs sm:text-base"> Discord : </p>
                 <input
                   className="p-2 mt-2 border-solid bg-foreground  border-background border-2 rounded-lg"
                   type="text"
@@ -447,8 +449,10 @@ export default function SolanaTokenCreationForm() {
             </div>
           </div>
 
-          <p className="mt-10 text-sm font-medium">Revoke Authorities</p>
-          <p className="text-sm text-gray mt-2 w-2/3">
+          <p className="mt-10 text-xs sm:text-sm font-medium">
+            Revoke Authorities
+          </p>
+          <p className="text-xs sm:text-sm text-gray mt-2 w-2/3">
             Solana Token have 3 authorities: Freeze Authority, Mint Authority
             and Update Authority. Revoke them to attract more investors.
           </p>
@@ -538,7 +542,7 @@ export default function SolanaTokenCreationForm() {
 
           <button
             type="submit"
-            className="px-6 py-3 bg-blueButton bg-secondary font-extrabold rounded-lg text-base mt-10 hover:bg-darker_secondary"
+            className="px-6 py-3 bg-blueButton bg-secondary font-extrabold rounded-lg text-xs sm:text-base mt-10 hover:bg-darker_secondary"
           >
             Create Token
           </button>

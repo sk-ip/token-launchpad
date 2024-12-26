@@ -24,7 +24,7 @@ export default function Home() {
         <WalletModalProvider>
           <div className="bg-background p-8">
             <div className="flex justify-end" suppressHydrationWarning>
-              <WalletMultiButtonDynamic />
+              <WalletMultiButtonDynamic className="text-xs" />
             </div>
             <SolanaTokenCreationForm />
             <TokenCreationGuide />
