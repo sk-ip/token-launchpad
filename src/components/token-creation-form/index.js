@@ -259,9 +259,9 @@ export default function SolanaTokenCreationForm() {
             Easily Create your own Solana SPL Token without Coding.
           </p>
 
-          <div className="grid md:grid-cols-2 w-2/3 gap-4 m-10 grid-cols-1">
+          <div className="grid md:grid-cols-2 w-2/3 gap-4 m-10 grid-cols-1 text-xs sm:text-base">
             <div className="flex flex-col">
-              <p className="text-xs sm:text-base">
+              <p>
                 {" "}
                 <span className="text-red-600">*</span> Name :{" "}
               </p>
@@ -284,7 +284,7 @@ export default function SolanaTokenCreationForm() {
             </div>
 
             <div className="flex flex-col">
-              <p className="text-xs sm:text-base">
+              <p>
                 {" "}
                 <span className="text-red-600">*</span> Symbol :{" "}
               </p>
@@ -307,7 +307,7 @@ export default function SolanaTokenCreationForm() {
             </div>
 
             <div className="flex flex-col">
-              <p className="text-xs sm:text-base">
+              <p>
                 {" "}
                 <span className="text-red-600">*</span> Decimals :{" "}
               </p>
@@ -340,7 +340,7 @@ export default function SolanaTokenCreationForm() {
             </div>
 
             <div className="flex flex-col">
-              <p className="text-xs sm:text-base">
+              <p>
                 {" "}
                 <span className="text-red-600">*</span> Supply :{" "}
               </p>
@@ -363,7 +363,7 @@ export default function SolanaTokenCreationForm() {
             </div>
 
             <div className="flex flex-col">
-              <p className="text-xs sm:text-base">
+              <p>
                 {" "}
                 <span className="text-red-600">*</span> Image :{" "}
               </p>
@@ -385,7 +385,7 @@ export default function SolanaTokenCreationForm() {
             </div>
 
             <div className="flex flex-col">
-              <p className="text-xs sm:text-base">
+              <p>
                 {" "}
                 <span className="text-red-600">*</span> Description :{" "}
               </p>
@@ -404,11 +404,11 @@ export default function SolanaTokenCreationForm() {
             </div>
           </div>
 
-          <div className="flex items-center flex-col w-2/3 mt-4 ">
+          <div className="flex items-center flex-col w-2/3 mt-4 text-xs sm:text-base">
             <p className="text-xs sm:text-sm">Add social links (optional)</p>
             <div className="grid lg:grid-cols-4 md:grid-cols-2 grid-cols-1 gap-4 w-full mt-6">
               <div className="flex flex-col">
-                <p className="text-xs sm:text-base"> Website : </p>
+                <p> Website : </p>
                 <input
                   className="p-2 mt-2 border-solid bg-foreground border-background border-2 rounded-lg"
                   type="text"
@@ -418,7 +418,7 @@ export default function SolanaTokenCreationForm() {
               </div>
 
               <div className="flex flex-col">
-                <p className="text-xs sm:text-base"> Twitter : </p>
+                <p> Twitter : </p>
                 <input
                   className="p-2 mt-2 border-solid bg-foreground border-background border-2 rounded-lg"
                   type="text"
@@ -428,7 +428,7 @@ export default function SolanaTokenCreationForm() {
               </div>
 
               <div className="flex flex-col">
-                <p className="text-xs sm:text-base"> Telegram : </p>
+                <p> Telegram : </p>
                 <input
                   className="p-2 mt-2 border-solid bg-foreground border-background border-2 rounded-lg"
                   type="text"
@@ -438,7 +438,7 @@ export default function SolanaTokenCreationForm() {
               </div>
 
               <div className="flex flex-col">
-                <p className="text-xs sm:text-base"> Discord : </p>
+                <p> Discord : </p>
                 <input
                   className="p-2 mt-2 border-solid bg-foreground  border-background border-2 rounded-lg"
                   type="text"
@@ -456,11 +456,12 @@ export default function SolanaTokenCreationForm() {
             Solana Token have 3 authorities: Freeze Authority, Mint Authority
             and Update Authority. Revoke them to attract more investors.
           </p>
+
           <div className="grid md:grid-cols-3 grid-cols-1 w-2/3 mt-10 gap-4">
             <div>
               <label
                 htmlFor="revoke-update"
-                className="flex gap-2 items-center text-sm"
+                className="flex gap-2 items-center text-xs sm:text-sm"
               >
                 <input
                   type="checkbox"
@@ -478,8 +479,10 @@ export default function SolanaTokenCreationForm() {
                 />{" "}
                 ( +{REVOKE_UPDATE_FEES} SOL )
               </label>
-              <p className="text-base font-medium">Revoke Update (Immutable)</p>
-              <p className="text-sm text-gray-400">
+              <p className="text-sm sm:text-base font-medium">
+                Revoke Update (Immutable)
+              </p>
+              <p className="text-xs sm:text-sm text-gray-400">
                 Update Authority allows you to update token metadata
               </p>
             </div>
@@ -487,7 +490,7 @@ export default function SolanaTokenCreationForm() {
             <div>
               <label
                 htmlFor="revoke-freeze"
-                className="flex gap-2 items-center text-sm"
+                className="flex gap-2 items-center text-xs sm:text-sm"
               >
                 <input
                   type="checkbox"
@@ -505,8 +508,8 @@ export default function SolanaTokenCreationForm() {
                 />{" "}
                 ( +{REVOKE_FREEZE_FEES} SOL )
               </label>
-              <p className="text-base font-medium">Revoke Freeze</p>
-              <p className="text-sm text-gray-400">
+              <p className="text-sm sm:text-base font-medium">Revoke Freeze</p>
+              <p className="text-xs sm:text-sm text-gray-400">
                 Freeze Authority allows you to freeze token accounts. This is
                 required if you want to create a liquidity pool.
               </p>
@@ -515,7 +518,7 @@ export default function SolanaTokenCreationForm() {
             <div>
               <label
                 htmlFor="revoke-mint"
-                className="flex gap-2 items-center text-sm"
+                className="flex gap-2 items-center text-xs sm:text-sm"
               >
                 <input
                   type="checkbox"
@@ -533,8 +536,8 @@ export default function SolanaTokenCreationForm() {
                 />{" "}
                 ( +{REVOKE_MINT_FEES} SOL )
               </label>
-              <p className="text-base font-medium">Revoke Mint</p>
-              <p className="text-sm text-gray-400">
+              <p className="text-sm sm:text-base font-medium">Revoke Mint</p>
+              <p className="text-xs sm:text-sm text-gray-400">
                 Mint Authority allows you to mint more supply
               </p>
             </div>
