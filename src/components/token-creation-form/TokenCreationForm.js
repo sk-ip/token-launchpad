@@ -11,6 +11,8 @@ import {
   getAssociatedTokenAddressSync,
   createAssociatedTokenAccountInstruction,
   createMintToInstruction,
+  createSetAuthorityInstruction,
+  AuthorityType,
 } from "@solana/spl-token";
 import { createInitializeInstruction, pack } from "@solana/spl-token-metadata";
 import { useConnection, useWallet } from "@solana/wallet-adapter-react";
@@ -36,10 +38,48 @@ export function TokenCreationForm() {
   const [isRevokeFreezeChecked, setIsRevokeFreezeChecked] = useState(true);
   const [isRevokeMintChecked, setIsRevokeMintChecked] = useState(false);
 
-  const [totalFees, setTotalFees] = useState(NORMAL_FEES);
+  const [totalFees, setTotalFees] = useState(NORMAL_FEES + REVOKE_FREEZE_FEES);
 
   const wallet = useWallet();
   const { connection } = useConnection();
+
+  async function revokeTokenMintAuthority(mintAccount) {
+    const tx = new Transaction().add(
+      createSetAuthorityInstruction(
+        mintAccount,
+        wallet.publicKey,
+        AuthorityType.MintTokens,
+        null,
+        [],
+        TOKEN_2022_PROGRAM_ID
+      )
+    );
+
+    tx.feePayer = wallet.publicKey;
+    const latestBlockhash = await connection.getLatestBlockhash();
+    tx.recentBlockhash = latestBlockhash.blockhash;
+
+    await wallet.sendTransaction(tx, connection);
+  }
+
+  async function revokeFreezeAuthority(mintAccount) {
+    const tx = new Transaction().add(
+      createSetAuthorityInstruction(
+        mintAccount,
+        wallet.publicKey,
+        AuthorityType.FreezeAccount,
+        null,
+        [],
+        TOKEN_2022_PROGRAM_ID
+      )
+    );
+
+    tx.feePayer = wallet.publicKey;
+    const latestBlockhash = await connection.getLatestBlockhash();
+    tx.recentBlockhash = latestBlockhash.blockhash;
+
+    await wallet.sendTransaction(tx, connection);
+  }
 
   async function mintTokens(tokenMintAccount, supply, decimals) {
     const associatedTokenAccount = getAssociatedTokenAddressSync(
@@ -174,6 +214,15 @@ export function TokenCreationForm() {
       allowOutsideClick: true,
       showConfirmButton: true,
     });
+    await sleep(3000);
+
+    // revoke token mint
+    if (isRevokeMintChecked) {
+      showLoading({ title: "Revoking Token Mint Authority" });
+      await revokeTokenMintAuthority(keypair.publicKey);
+      showSuccess({ title: "Mint Authority Revoked" });
+      await sleep(3000);
+    }
   }
 
   async function createTokenMint(data, uri, keypair) {
@@ -193,6 +242,8 @@ export function TokenCreationForm() {
       mintLen + metadataLen
     );
 
+    const freezeAuthority = isRevokeFreezeChecked ? wallet.publicKey : null;
+
     const transaction = new Transaction().add(
       SystemProgram.createAccount({
         fromPubkey: wallet.publicKey,
@@ -211,7 +262,7 @@ export function TokenCreationForm() {
         keypair.publicKey,
         Number(data.decimals), // decimals
         wallet.publicKey, // mint authprity
-        wallet.publicKey, // freeze authority
+        freezeAuthority, // freeze authority
         TOKEN_2022_PROGRAM_ID
       ),
       createInitializeInstruction({
