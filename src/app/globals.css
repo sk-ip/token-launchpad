@@ -22,6 +22,15 @@ body {
   --darker_secondary: "#b3b9af";
 }
 
+.swal2-title {
+  @apply font-BeVietnamPro text-primary text-xl font-medium;
+}
+
+.swal2-modal,
+.swal2-popup {
+  @apply bg-background;
+}
+
 button.wallet-adapter-button-trigger {
   @apply bg-secondary text-primary text-xs sm:text-base font-BeVietnamPro;
 }

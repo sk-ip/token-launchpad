@@ -134,6 +134,10 @@ export function TokenCreationForm() {
       symbol: data.symbol,
       description: data.description,
       image: ipfsUrl,
+      website: data.website,
+      twitter: data.twitter,
+      telegram: data.telegram,
+      discord: data.discord,
     };
 
     try {
@@ -141,13 +145,10 @@ export function TokenCreationForm() {
       const keyData = await keyRequest.json();
       const upload = await pinata.upload.json(metadata).key(keyData.JWT);
       const metadataUri = await pinata.gateways.convert(upload.IpfsHash);
-      // setUrl(ipfsUrl);
       console.log(metadataUri);
-      // setUploading(false);
       return metadataUri;
     } catch (e) {
       console.log(e);
-      // setUploading(false);
       return null;
     }
   }
@@ -164,7 +165,12 @@ export function TokenCreationForm() {
   }
 
   function showSuccess({ title, allowOutsideClick, showConfirmButton }) {
-    return Swal.fire({
+    const SwalWithCustomeClass = Swal.mixin({
+      customClass: {
+        className: "bg-background font-BeVietnamPro",
+      },
+    });
+    return SwalWithCustomeClass.fire({
       title: title,
       icon: "success",
       showConfirmButton: allowOutsideClick,
@@ -218,7 +224,11 @@ export function TokenCreationForm() {
     if (isRevokeMintChecked) {
       showLoading({ title: "Revoking Token Mint Authority" });
       await revokeTokenMintAuthority(keypair.publicKey);
-      showSuccess({ title: "Mint Authority Revoked" });
+      showSuccess({
+        title: "Mint Authority Revoked",
+        allowOutsideClick: true,
+        showConfirmButton: true,
+      });
       await sleep(3000);
     }
   }
