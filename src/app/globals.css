@@ -14,11 +14,18 @@ body {
   }
 }
 
-/* button.wallet-adapter-button-trigger {
-  @apply bg-secondary text-primary hover:bg-white;
-} */
+:root {
+  --foreground: "#EEF0F2";
+  --background: "#ECEBE4";
+  --primary: "#1C1C1C";
+  --secondary: "#DADDD8";
+  --darker_secondary: "#b3b9af";
+}
 
-/* .wallet-adapter-button,
-.wallet-adapter-button-trigger {
-  all: unset !important;
-} */
+button.wallet-adapter-button-trigger {
+  @apply bg-secondary text-primary text-xs sm:text-base font-BeVietnamPro;
+}
+
+button.wallet-adapter-button:not([disabled]):hover {
+  @apply bg-darker_secondary;
+}

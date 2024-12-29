@@ -30,11 +30,9 @@ import { pinata } from "@/utils/config";
 
 export function TokenCreationForm() {
   const NORMAL_FEES = 0.1;
-  const REVOKE_UPDATE_FEES = 0.1;
   const REVOKE_FREEZE_FEES = 0.1;
   const REVOKE_MINT_FEES = 0.1;
 
-  const [isRevokeUpdateChecked, setIsRevokeUpdateChecked] = useState(false);
   const [isRevokeFreezeChecked, setIsRevokeFreezeChecked] = useState(true);
   const [isRevokeMintChecked, setIsRevokeMintChecked] = useState(false);
 
@@ -242,7 +240,7 @@ export function TokenCreationForm() {
       mintLen + metadataLen
     );
 
-    const freezeAuthority = isRevokeFreezeChecked ? wallet.publicKey : null;
+    const freezeAuthority = isRevokeFreezeChecked ? null : wallet.publicKey;
 
     const transaction = new Transaction().add(
       SystemProgram.createAccount({
@@ -278,7 +276,7 @@ export function TokenCreationForm() {
       SystemProgram.transfer({
         fromPubkey: wallet.publicKey,
         toPubkey: new PublicKey(process.env.NEXT_PUBLIC_VAULT),
-        lamports: totalFees * Math.pow(10, 9),
+        lamports: Number(totalFees.toFixed(2)) * Math.pow(10, 9),
       })
     );
 
@@ -288,9 +286,6 @@ export function TokenCreationForm() {
 
     transaction.partialSign(keypair);
     const trx = await wallet.sendTransaction(transaction, connection);
-
-    console.log(trx);
-    console.log(keypair.publicKey);
   }
 
   const {
@@ -508,36 +503,7 @@ export function TokenCreationForm() {
             and Update Authority. Revoke them to attract more investors.
           </p>
 
-          <div className="grid md:grid-cols-3 grid-cols-1 w-2/3 mt-10 gap-4">
-            <div>
-              <label
-                htmlFor="revoke-update"
-                className="flex gap-2 items-center text-xs sm:text-sm"
-              >
-                <input
-                  type="checkbox"
-                  id="revoke-update"
-                  className="h-4 w-4"
-                  checked={isRevokeUpdateChecked}
-                  onChange={(e) => {
-                    if (!isRevokeUpdateChecked) {
-                      setTotalFees(totalFees + REVOKE_UPDATE_FEES);
-                    } else {
-                      setTotalFees(totalFees - REVOKE_UPDATE_FEES);
-                    }
-                    setIsRevokeUpdateChecked(!isRevokeUpdateChecked);
-                  }}
-                />{" "}
-                ( +{REVOKE_UPDATE_FEES} SOL )
-              </label>
-              <p className="text-sm sm:text-base font-medium">
-                Revoke Update (Immutable)
-              </p>
-              <p className="text-xs sm:text-sm text-gray-400">
-                Update Authority allows you to update token metadata
-              </p>
-            </div>
-
+          <div className="grid md:grid-cols-2 grid-cols-1 w-2/3 mt-10 gap-4">
             <div>
               <label
                 htmlFor="revoke-freeze"

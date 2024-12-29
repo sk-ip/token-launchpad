@@ -24,7 +24,7 @@ export default function SolanaTokenCreationForm() {
         <WalletModalProvider>
           <div className="bg-background">
             <div className="flex justify-end" suppressHydrationWarning>
-              <WalletMultiButtonDynamic className="text-xs" />
+              <WalletMultiButtonDynamic />
             </div>
             <TokenCreationForm />
           </div>
