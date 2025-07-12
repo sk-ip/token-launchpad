@@ -22,7 +22,7 @@ export default function SolanaTokenCreationForm() {
     <ConnectionProvider endpoint={"https://api.devnet.solana.com"}>
       <WalletProvider wallets={[]} autoConnect>
         <WalletModalProvider>
-          <div className="bg-background">
+          <div className="bg-background w-4/5">
             <div className="flex justify-end" suppressHydrationWarning>
               <WalletMultiButtonDynamic />
             </div>

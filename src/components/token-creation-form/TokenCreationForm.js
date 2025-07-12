@@ -307,7 +307,7 @@ export function TokenCreationForm() {
   return (
     <div className="font-BeVietnamPro">
       <form onSubmit={handleSubmit(createToken)}>
-        <div className="bg-foreground p-4 flex flex-col items-center rounded-lg mt-10 mb-10 text-primary">
+        <div className="bg-foreground flex flex-col items-center rounded-lg mt-10 mb-10 text-primary">
           <h1 className="text-base sm:text-4xl font-black mt-12">
             Solana Token Creator
           </h1>

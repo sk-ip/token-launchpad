@@ -4,7 +4,7 @@ import Head from "next/head";
 
 export default async function TokenCreationGuide() {
   return (
-    <>
+    <div className="w-4/5">
       <Head>
         <title>Solana Token Creation Guide</title>
         <meta
@@ -82,6 +82,6 @@ export default async function TokenCreationGuide() {
           You can choose to revoke mint authority later if you choose.
         </p>
       </div>
-    </>
+    </div>
   );
 }
