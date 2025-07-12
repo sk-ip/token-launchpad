@@ -19,7 +19,11 @@ const WalletMultiButtonDynamic = dynamic(
 
 export default function SolanaTokenCreationForm() {
   return (
-    <ConnectionProvider endpoint={"https://api.devnet.solana.com"}>
+    <ConnectionProvider
+      endpoint={
+        "https://solana-mainnet.g.alchemy.com/v2/0Jr9auvM7TxENEA07kD41B9FIl7TBzKL"
+      }
+    >
       <WalletProvider wallets={[]} autoConnect>
         <WalletModalProvider>
           <div className="bg-background w-4/5">
